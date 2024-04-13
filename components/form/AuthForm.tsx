@@ -61,23 +61,15 @@ const AuthForm = ({
         
     }
 
-
-
-
-    if (currentUser) {
-        useEffect(() => {
-            if (session?.status === "authenticated") {
-                if (currentUser.role === 'ADMIN') {
-                    router.push('/admins')
-                } else {
-                    router.push('/users')
-                }
+    useEffect(() => {
+        if (currentUser && session?.status === "authenticated") {
+            if (currentUser.role === 'ADMIN') {
+                router.push('/admins')
+            } else {
+                router.push('/users')
             }
-        }, [session?.status, router])
-    }
-
-
-
+        }
+    }, [currentUser, session?.status, router])
 
     if (!currentUser) {
         return (
