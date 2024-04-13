@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "echo 'Deploying...' && vercel --prod && echo 'Deployment complete.' || echo 'Deployment failed.'"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
