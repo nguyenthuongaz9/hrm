@@ -1,5 +1,5 @@
 {
     "version": 2,
-    "builds": [{ "src": "*", "use": "@vercel/node" }]
+    "builds": [{ "app": "*", "use": "@vercel/node" }]
   }
   
