@@ -524,7 +524,7 @@ const EmployeeForm = ({
                                             >
                                                 <option value=""></option>
                                                 {nations.map((nation) => (
-                                                    <option value={nation.id}>{nation.name}</option>
+                                                    <option key={nation.id} value={nation.id}>{nation.name}</option>
                                                 ))}
                                             </select>
 
@@ -550,7 +550,7 @@ const EmployeeForm = ({
                                             >
                                                 <option value=""></option>
                                                 {degrees.map((degree) => (
-                                                    <option value={degree.id}>{degree.degreeName}</option>
+                                                    <option key={degree.id} value={degree.id}>{degree.degreeName}</option>
                                                 ))}
                                             </select>
 
@@ -622,7 +622,7 @@ const EmployeeForm = ({
                                             >
                                                 <option value=""></option>
                                                 {positions.map((position) => (
-                                                    <option value={position.id}>{position.positionName}</option>
+                                                    <option key={position.id} value={position.id}>{position.positionName}</option>
                                                 ))}
                                             </select>
 
@@ -648,7 +648,7 @@ const EmployeeForm = ({
                                             >
                                                 <option value=""></option>
                                                 {departments.map((department) => (
-                                                    <option value={department.id}>{department.departmentName}</option>
+                                                    <option key={department.id} value={department.id}>{department.departmentName}</option>
                                                 ))}
                                             </select>
 
@@ -674,7 +674,7 @@ const EmployeeForm = ({
                                             >
                                                 <option value=""></option>
                                                 {typeOfEmployees.map((item) => (
-                                                    <option value={item.id}>{item.name}</option>
+                                                    <option key={item.id} value={item.id}>{item.name}</option>
                                                 ))}
                                             </select>
 
