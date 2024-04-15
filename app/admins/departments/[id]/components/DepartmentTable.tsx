@@ -12,12 +12,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { IoMdEye } from "react-icons/io";
-import { MdOutlineDelete } from "react-icons/md";
+
 import { useState } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
+
 
 import { useRouter } from "next/navigation";
 import DeleteDialog from "./DeleteDialog";

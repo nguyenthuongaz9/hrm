@@ -19,7 +19,8 @@ export default async function getProjectById(id:string) {
                         nations: true,
                         degrees: true
                     }
-                }
+                },
+                departments: true
             }
         })
 

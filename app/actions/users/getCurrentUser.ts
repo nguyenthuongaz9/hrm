@@ -17,6 +17,9 @@ const getCurrentUser = async () => {
     const currentUser = await db.user.findUnique({
         where:{
             email: `${session.user?.email}`
+        },
+        include:{
+            employee: true
         }
     })
 

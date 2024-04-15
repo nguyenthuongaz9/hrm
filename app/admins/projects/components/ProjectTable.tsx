@@ -17,13 +17,15 @@ import { useRouter } from "next/navigation";
 
 
 interface DepartmentTableProps {
-    projects: any[]
+    projects: any[],
+    departments: any[]
 }
 
 
 
 const DepartmentTable = ({
-    projects
+    projects,
+    departments
 }: DepartmentTableProps) => {
 
     const [isViewOpen, setIsViewOpen] = useState(false);
@@ -99,8 +101,8 @@ const DepartmentTable = ({
             </Table>
 
             
-            <DepartmentDialog isOpen={isEditOpen} setIsOpen={setIsEditOpen} variant="edit" data={currentData} />
-            <DepartmentDialog isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} variant="delete" data={currentData} />
+            <DepartmentDialog isOpen={isEditOpen} setIsOpen={setIsEditOpen} variant="edit" data={currentData} departments={departments} />
+            <DepartmentDialog isOpen={isDeleteOpen} setIsOpen={setIsDeleteOpen} variant="delete" data={currentData} departments={departments} />
 
         </div>
     )

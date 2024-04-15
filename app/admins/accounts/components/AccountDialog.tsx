@@ -11,6 +11,7 @@ import { z } from "zod"
 import { IoMdClose } from "react-icons/io";
 import axios from 'axios'
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 
 interface AccountDialogProps {
@@ -59,7 +60,8 @@ export default function AccountDialog({
             form.setValue('email', data.email);
             form.setValue('password', data.password);
             form.setValue('role', data.role);
-            form.setValue('employeeId', data.employeeId);
+            form.setValue('employeeId', data?.employee?.id);
+            
         }
     }, [data, variant, form]);
     
@@ -73,10 +75,11 @@ export default function AccountDialog({
             })
                 .then((callback) => {
                     if (callback.status === 200) {
-                        console.log('create successfully')
+                        toast.success('Thêm tài khoản thành công')
                         setIsOpen(false)
+                        location.reload()
                     } else {
-                        console.log('create failed')
+                        toast.error('Thêm tài khoản thất bại')
                     }
                 })
         }
@@ -88,10 +91,11 @@ export default function AccountDialog({
             })
                 .then((callback) => {
                     if (callback.status === 200) {
-                        console.log('create successfully')
+                        toast.success('Cập nhật thành công')
                         setIsOpen(false)
+                        location.reload()
                     } else {
-                        console.log('create failed')
+                        toast.error('Cập nhật thất bại')
                     }
                 })
 

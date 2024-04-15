@@ -1,0 +1,43 @@
+
+
+import MainContent from "./components/MainContent";
+
+import Statusbar from "./components/Statusbar";
+import getBonusList from "@/app/actions/rewards/getBonusList";
+import getDepartmentList from "@/app/actions/departments/getDepartmentsList";
+import getKindOfRewardList from "@/app/actions/rewards/getKindOfRewardList";
+import getCurrentUser from "@/app/actions/users/getCurrentUser";
+import { redirect } from "next/navigation";
+import getEmployeeById from "@/app/actions/employees/getEmployeeById";
+
+
+
+
+
+const RewardPage = async () => {
+
+ 
+  const user = await getCurrentUser()
+
+  if(user?.role === 'ADMIN'){
+    return redirect('/admins')
+  }
+
+
+  if(!user || !user.employee){
+    return redirect('/authentication')
+  }
+
+
+  const employee = await getEmployeeById(user?.employee?.id)
+
+  
+  return (
+    <div className="p-5 space-y-10">
+        
+        <MainContent bonuses={employee?.bonuses? employee.bonuses : []}  />
+    </div>
+  )
+}
+
+export default RewardPage

@@ -51,6 +51,7 @@ export async function PUT(req: Request, context: any) {
             religion,
             nationId,
             departmentId,
+            projectId,
             phone,
             email,
             address,
@@ -61,6 +62,54 @@ export async function PUT(req: Request, context: any) {
             typeOfEmployeeId,
             status
         } = body;
+
+
+        if(!projectId){
+            const updated = await db.employee.update({
+                where:{
+                    id: employeeId
+                },
+                data:{
+                    firstName,
+                    lastName,
+                    imageUrl,
+                    sex,
+                    dateOfBirth,
+                    birthPlace: birthplace,
+                    identificationCode,
+                    dateRange,
+                    issuedBy,
+                    nationality,
+                    religion,
+                    nations:{
+                        connect:{
+                            id: nationId
+                        }
+                    },
+                    DepartmentId: departmentId,
+                    phone,
+                    email,
+                    address,
+                    positionId,
+                    degrees:{
+                        connect:{
+                            id: degreeId
+                        }
+                    },
+                    specialize,
+                    experience,
+                    typeOfEmployeeId,
+                    status
+                }
+            })
+    
+    
+            if(!updated){
+                return new NextResponse('INTERNAL ERROR', { status: 500 })
+            }
+    
+            return NextResponse.json(updated);
+        }
 
         const updated = await db.employee.update({
             where:{
@@ -84,6 +133,11 @@ export async function PUT(req: Request, context: any) {
                     }
                 },
                 DepartmentId: departmentId,
+                projects:{
+                    disconnect:{
+                        id: projectId
+                    }
+                },
                 phone,
                 email,
                 address,
@@ -108,6 +162,9 @@ export async function PUT(req: Request, context: any) {
         return NextResponse.json(updated);
 
 
+
+
+
     }catch(error: any){
         console.log(error)
     }
@@ -123,7 +180,7 @@ export async function DELETE(req: Request, context: any) {
 
         const  employeeId  = params.employeeId;
 
-        console.log(employeeId)
+     
 
 
         const deleted = await db.employee.delete({

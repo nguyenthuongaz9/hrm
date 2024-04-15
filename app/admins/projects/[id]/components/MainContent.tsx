@@ -2,15 +2,19 @@
 
 
 import { useEffect, useState } from "react"
-import { IoIosSearch, IoMdArrowDropright } from "react-icons/io"
+import { IoIosAddCircleOutline, IoIosSearch, IoMdArrowDropright } from "react-icons/io"
 
 import { Pagination } from "@mui/material"
 import ProjectTable from "./ProjectTable"
+import { Button } from "@/components/ui/button"
+import AddEmployeeDialog from "./AddEmployeeDialog"
+import DepartmentTable from "./DepartmentTable"
+import AddDepartmentDialog from "./AddDepartmentDialog"
 
 
 
 interface MainContentProps {
-    employees: any[],
+    departments: any[],
     project: any
 
 }
@@ -19,48 +23,79 @@ interface MainContentProps {
 const PAGE_SIZE = 5
 
 const MainContent = ({
-    employees,
+    departments,
     project
 }: MainContentProps) => {
+
+
+    const [isOpenD, setIsOpenD] = useState(false)
+    const [isOpenE, setIsOpenE] = useState(false)
 
     const [isMounted, setIsMounted] = useState(false)
 
     useEffect(() => {
         setIsMounted(true)
     }, [])
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPageE, setCurrentPageE] = useState(1);
+    const [currentPageD, setCurrentPageD] = useState(1);
 
 
-    const [searchValue, setSearchValue] = useState<any[]>(employees);
-    const [searchType, setSearchType] = useState<string>("name"); // Mặc định tìm kiếm theo tên
+    const [searchValueE, setSearchValueE] = useState<any[]>(project.employees);
+    const [searchValueD, setSearchValueD] = useState<any[]>(project.departments);
+    const [searchTypeE, setSearchTypeE] = useState<string>("name");
+    const [searchTypeD, setSearchTypeD] = useState<string>("name");
 
-    const totalPages = Math.ceil(searchValue.length / PAGE_SIZE);
-    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const totalPagesE = Math.ceil(searchValueE.length / PAGE_SIZE);
+    const startIndex = (currentPageE - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
-    const currentEmployee = searchValue.slice(startIndex, endIndex);
+    const currentEmployee = searchValueE.slice(startIndex, endIndex);
 
-    const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
-        setCurrentPage(page);
+    const totalPagesD = Math.ceil(searchValueD.length / PAGE_SIZE);
+    const startIndexD = (currentPageD - 1) * PAGE_SIZE;
+    const endIndexD = startIndexD + PAGE_SIZE;
+    const currentDepartment = searchValueD.slice(startIndexD, endIndexD);
+
+    const handleChangePageE = (event: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPageE(page);
+    };
+    const handleChangePageD = (event: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPageD(page);
     };
 
     useEffect(() => {
-        setSearchType("name");
+        setSearchTypeE("name");
+        setSearchTypeD("name")
     }, []);
 
-    const handleSearchChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    const handleSearchChangeE: React.ChangeEventHandler<HTMLInputElement> = (event) => {
         const value = event.target.value.trim().toLowerCase();
-        const filteredData = employees.filter((item) => {
+        const filteredDataE = project.employees.filter((item: any) => {
             const employeeName = `${item?.firstName} ${item?.lastName}`;
-            if (searchType === 'name') {
+            if (searchTypeE === 'name') {
 
                 return employeeName.toLowerCase().includes(value);
             }
-            if (searchType === 'id') {
+            if (searchTypeE === 'id') {
                 return item.id.toString().includes(value);
             }
             return true;
         });
-        setSearchValue(filteredData);
+        setSearchValueE(filteredDataE);
+    };
+    const handleSearchChangeD: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+        const value = event.target.value.trim().toLowerCase();
+        const filteredDataE = project.departments.filter((item: any) => {
+            const employeeName = item?.departmentName;
+            if (searchTypeD === 'name') {
+
+                return employeeName.toLowerCase().includes(value);
+            }
+            if (searchTypeD === 'id') {
+                return item.id.toString().includes(value);
+            }
+            return true;
+        });
+        setSearchValueD(filteredDataE);
     };
 
 
@@ -86,8 +121,80 @@ const MainContent = ({
                 <p className="text-zinc-600">{project.description}</p>
             </div>
 
+            <div className="w-full flex justify-between">
+                <h3 className="text-2xl font-bold">Phòng ban</h3>
+                <Button
+                    onClick={() => setIsOpenD(true)}
+                    className="transition-all flex items-center gap-2 bg-[#2c76f9] hover:bg-[#2a71ec] hover:ring-2"
+                >
+                    <IoIosAddCircleOutline size={25} />
+                    <p className="text-white font-semibold">Thêm phòng ban mới</p>
+                </Button>
+            </div>
+            {project.departments.length > 0 && (
 
-            {employees.length > 0 && (
+                <div className="p-5 space-y-4">
+                    <div className="w-full flex justify-between">
+                        <div className="">
+                            <h3 className="text-xl font-semibold text-zinc-500">Phòng ban trong dự án</h3>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <div className="w-[300px] border border-solid flex items-center rounded-lg">
+                                <IoIosSearch size={25} className="ml-3" />
+                                <input
+                                    className="focus:outline-none px-3 py-2"
+                                    type="text"
+                                    placeholder="..."
+                                    onChange={handleSearchChangeD}
+                                />
+                            </div>
+                            <div className="border flex items-center justify-center rounded-lg px-2">
+                                <select
+                                    className="w-full focus:outline-none" name="category"
+                                    id="category"
+                                    value={searchTypeD}
+                                    onChange={(event) => setSearchTypeD(event.target.value)}
+                                >
+                                    <option value="name">Tên phòng ban</option>
+
+                                    <option value="id">Mã phòng ban</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="border rounded-lg p-5">
+                        <DepartmentTable departments={currentDepartment} project={project} />
+                    </div>
+
+                    <div className="w-full mb-20 flex items-center justify-center">
+                        <Pagination count={totalPagesD} page={currentPageD} onChange={handleChangePageD} />
+                    </div>
+
+                </div>
+            )}
+
+            {project.departments.length < 1 && (
+                <div className="w-full flex items-center justify-center">
+                    <h3 className="text-xl font-semibold text-zinc-600">Chưa có phòng ban nào trong dự án</h3>
+                </div>
+            )}
+
+
+            <div className="w-full flex justify-between">
+                <h3 className="text-2xl font-bold">Nhân viên</h3>
+                <Button
+                    onClick={() => setIsOpenE(true)}
+                    className="transition-all flex items-center gap-2 bg-[#2c76f9] hover:bg-[#2a71ec] hover:ring-2"
+                >
+                    <IoIosAddCircleOutline size={25} />
+                    <p className="text-white font-semibold">Thêm nhân viên mới</p>
+                </Button>
+            </div>
+
+
+            {project.employees.length > 0 && (
 
                 <div className="p-5 space-y-4">
                     <div className="w-full flex justify-between">
@@ -102,15 +209,15 @@ const MainContent = ({
                                     className="focus:outline-none px-3 py-2"
                                     type="text"
                                     placeholder="..."
-                                    onChange={handleSearchChange}
+                                    onChange={handleSearchChangeE}
                                 />
                             </div>
                             <div className="border flex items-center justify-center rounded-lg px-2">
                                 <select
                                     className="w-full focus:outline-none" name="category"
                                     id="category"
-                                    value={searchType}
-                                    onChange={(event) => setSearchType(event.target.value)}
+                                    value={searchTypeE}
+                                    onChange={(event) => setSearchTypeE(event.target.value)}
                                 >
                                     <option value="name">Tên nhân viên</option>
 
@@ -121,22 +228,31 @@ const MainContent = ({
                     </div>
 
                     <div className="border rounded-lg p-5">
-                        <ProjectTable employees={currentEmployee} />
+                        <ProjectTable employees={currentEmployee} projectId={project.id} />
                     </div>
 
                     <div className="w-full mb-20 flex items-center justify-center">
-                        <Pagination count={totalPages} page={currentPage} onChange={handleChangePage} />
+                        <Pagination count={totalPagesE} page={currentPageE} onChange={handleChangePageE} />
                     </div>
 
                 </div>
             )}
 
 
-            {employees.length < 1 && (
+            {project.employees.length < 1 && (
                 <div className="w-full flex items-center justify-center">
                     <h3 className="text-xl font-semibold text-zinc-600">Chưa có nhân viên nào trong dự án</h3>
                 </div>
             )}
+
+
+            <div>
+                <AddEmployeeDialog isOpen={isOpenE} setIsOpen={setIsOpenE} data={project} departments={departments} />
+            </div>
+            <div>
+                <AddDepartmentDialog isOpen={isOpenD} setIsOpen={setIsOpenD} data={project} departments={departments} />
+            </div>
+           
 
 
 

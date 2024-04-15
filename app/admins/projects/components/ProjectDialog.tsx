@@ -23,7 +23,8 @@ interface ProjectDialogProps {
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
     variant: "create" | "edit" | "delete",
-    data?: any
+    data?: any,
+    departments: any[]
 }
 
 
@@ -34,7 +35,8 @@ const formSchema = z.object({
     startDate: z.date(),
     endDate: z.date(),
     description: z.string(),
-    status: z.string()
+    status: z.string(),
+    departmentId: z.string(),
 })
 
 
@@ -45,7 +47,8 @@ export default function ProjectDialog({
     isOpen,
     setIsOpen,
     variant,
-    data
+    data,
+    departments
 }: ProjectDialogProps) {
 
 
@@ -56,7 +59,8 @@ export default function ProjectDialog({
             description: '',
             startDate: undefined,
             endDate: undefined,
-            status: 'UNFINISHED'
+            status: 'UNFINISHED',
+            departmentId: ''
         }
 
     })
@@ -70,10 +74,10 @@ export default function ProjectDialog({
                 ...values
             }).then((callback) => {
                 if (callback.status === 200) {
-                    toast.success('Tạo phòng ban thành công')
+                    toast.success('Tạo dự án thành công')
                     form.reset()
                 } else {
-                    toast.error('Tạo phòng ban thất bại')
+                    toast.error('Tạo dự án thất bại')
                 }
             })
         }
@@ -89,7 +93,7 @@ export default function ProjectDialog({
                     toast.error('Cập nhật thất bại')
                 }
             })
-            
+
 
         }
 
@@ -338,13 +342,13 @@ export default function ProjectDialog({
                                             <FormItem>
                                                 <div className='flex items-center gap-1'>
                                                     <h3>Trạng thái</h3>
-                                                    
+
                                                 </div>
                                                 <FormControl>
                                                     <select name="status" id="status"
                                                         className='px-3 py-2 border rounded-md w-full'
                                                         value={field.value}
-                                                        onChange={(value)=> field.onChange(value)}
+                                                        onChange={(value) => field.onChange(value)}
                                                     >
                                                         <option value="FINISHED">Đã hoàn thành</option>
                                                         <option value="UNFINISHED">Chưa hoàn thành</option>
@@ -357,6 +361,36 @@ export default function ProjectDialog({
 
                                 </>
                             )}
+
+
+                            <FormField
+                                control={form.control}
+                                name="departmentId"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Chọn phòng ban*</FormLabel>
+                                        <FormControl>
+                                            <select
+                                                onChange={(event) => {
+                                                    const selectedDepartmentId = event.target.value;
+                                                    
+                                                    field.onChange(selectedDepartmentId)
+                                                    
+                                                }}
+                                                className="border w-full rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-300">
+                                                <option value=""></option>
+                                                {departments.map((item) => (
+                                                    <option key={item.id} value={item.id}>
+                                                        {item.departmentName}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </FormControl>
+
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
 
                             <Button

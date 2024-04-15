@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 
 interface DeleteDialogProps {
     employee: any;
+    projectId: any;
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
 }
@@ -16,6 +17,7 @@ interface DeleteDialogProps {
 
 const DeleteDialog = ({
     employee,
+    projectId,
     isOpen,
     setIsOpen
 }: DeleteDialogProps) => {
@@ -39,7 +41,8 @@ const DeleteDialog = ({
             nationality: employee.nationality,
             religion: employee.religion,
             nationId: employee?.nations[0]?.id,
-            departmentId: null,
+            departmentId: employee.DepartmentId,
+            projectId: projectId,
             phone: employee.phone,
             email: employee.email,
             address: employee.address,
@@ -72,7 +75,7 @@ const DeleteDialog = ({
     return (
         <Dialog open={isOpen}>
             <DialogContent>
-                <h3>Bạn chắc chắn muốn xóa nhân viên khỏi phòng ban?</h3>
+                <h3>Bạn chắc chắn muốn xóa nhân viên khỏi dự án?</h3>
                 <div className='w-full h-full flex justify-between p-5'>
                     <button 
                         className='transition-all text-white rounded-md px-3 py-2 bg-[#2c76f9] hover:bg-[#2a71ec] hover:ring-2'

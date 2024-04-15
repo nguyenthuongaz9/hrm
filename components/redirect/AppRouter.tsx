@@ -29,6 +29,10 @@ const AppRouter = ({
         return null;
     }
 
+    if(!session){
+        router.push('/authentication')
+    }
+
     
 
 
@@ -36,7 +40,8 @@ const AppRouter = ({
     if (session.status === 'authenticated') {
         if(currentUser?.role === 'ADMIN'){
             router.push('/admins')
-        }else{
+        }
+        if(currentUser?.role === 'GUEST'){
             router.push('/users')
         }
     }

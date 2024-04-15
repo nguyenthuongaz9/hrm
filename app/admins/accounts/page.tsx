@@ -1,5 +1,7 @@
 import getUserList from "@/app/actions/users/getUserList"
 import MainContent from "./components/MainContent"
+import { redirect } from "next/navigation"
+import getCurrentUser from "@/app/actions/users/getCurrentUser"
 
 
 
@@ -7,6 +9,13 @@ import MainContent from "./components/MainContent"
 
 
 const page = async () => {
+
+    const user = await getCurrentUser()
+
+    if(user?.role === 'GUEST'){
+      return redirect('/users')
+    }
+  
 
     const users = await getUserList();
     return (

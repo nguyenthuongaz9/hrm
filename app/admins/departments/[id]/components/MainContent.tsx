@@ -56,7 +56,6 @@ const MainContent = ({
         setCurrentPage(page);
     };
 
-    console.log(department.departmentManager)
 
     useEffect(() => {
         setSearchType("name");

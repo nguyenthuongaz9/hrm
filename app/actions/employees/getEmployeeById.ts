@@ -21,6 +21,19 @@ export default async function getEmployeeById(id: string) {
                         }
                     }
                 }
+            },
+            projects: true,
+            bonuses: {
+                include:{
+                    kindOfBonus: true,
+                    employees: true
+                }
+            },
+            disciplines:{
+                include:{
+                    kindOfDiscipline: true,
+                    employees: true
+                }
             }
         }
     })

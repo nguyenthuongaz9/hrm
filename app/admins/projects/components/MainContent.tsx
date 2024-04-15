@@ -15,11 +15,13 @@ import DepartmentDialog from './ProjectDialog';
 const PAGE_SIZE = 5;
 
 interface MainContentProps {
-    projects: any[]
+    projects: any[],
+    departments: any[]
 }
 
 const MainContent = ({
-    projects
+    projects,
+    departments
 }: MainContentProps) => {
 
 
@@ -126,7 +128,7 @@ const MainContent = ({
                         </div>
 
                         <div>
-                            <DepartmentTable projects={currentProjects} />
+                            <DepartmentTable projects={currentProjects} departments={departments} />
                         </div>
 
                     </div>
@@ -143,7 +145,7 @@ const MainContent = ({
 
 
             <div>
-                <DepartmentDialog isOpen={isOpen} setIsOpen={setIsOpen} variant='create' />
+                <DepartmentDialog isOpen={isOpen} setIsOpen={setIsOpen} variant='create' departments={departments} />
             </div>
 
 

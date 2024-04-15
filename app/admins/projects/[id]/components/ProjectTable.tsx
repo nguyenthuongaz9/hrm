@@ -26,11 +26,13 @@ import DeleteDialog from "./DeleteDialog";
 
 
 interface ProjectTableProps {
+    projectId: any;
     employees: any[]
 }
 
 const ProjectTable = ({
-    employees
+    employees,
+    projectId
 }: ProjectTableProps) => {
 
 
@@ -82,7 +84,7 @@ const ProjectTable = ({
                            
                             <TableCell >{employee.dateOfBirth.toLocaleDateString()}</TableCell>
                             <TableCell >{employee.sex}</TableCell>
-                            <TableCell >{employee.status}</TableCell>
+                            <TableCell >{employee.status === 'ACTIVE'? 'Đang làm việc': "Đã nghỉ việc"}</TableCell>
                             <TableCell >{employee.typeOfEmployee.name}</TableCell>
                             <TableCell>
                                 <Button
@@ -113,7 +115,7 @@ const ProjectTable = ({
 
 
             <div>
-                <DeleteDialog isOpen={isOpen} setIsOpen={setIsOpen} employee={employee} />
+                <DeleteDialog isOpen={isOpen} setIsOpen={setIsOpen} employee={employee} projectId={projectId} />
             </div>
 
             

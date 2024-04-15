@@ -9,13 +9,99 @@ export async function PUT(req: Request, context: any) {
         const id = params.id
         const body = await req.json()
 
+
+        
+
         const {
+            st,
             name,
             startDate,
             endDate,
             description,
-            status
+            status,
+            employeeId,
+            departmentId,
         } = body;
+
+
+
+        if(st === 'AddEmployee'){
+            const updated = await db.project.update({
+                where:{
+                    id
+                },
+                data:{
+                    name,
+                    startDate,
+                    endDate,
+                    description,
+                    status,
+                    employees:{
+                        connect:{
+                            id: employeeId
+                        }
+                    },
+                }
+            })
+    
+            if(!updated){
+                return new NextResponse('INTERNAL ERROR', { status: 500 })
+            }
+    
+            return NextResponse.json(updated)      
+        }
+        if(st === 'AddDepartment'){
+            const updated = await db.project.update({
+                where:{
+                    id
+                },
+                data:{
+                    name,
+                    startDate,
+                    endDate,
+                    description,
+                    status,
+                    departments:{
+                        connect:{
+                            id: departmentId
+                        }
+                    }
+                }
+            })
+    
+            if(!updated){
+                return new NextResponse('INTERNAL ERROR', { status: 500 })
+            }
+    
+            return NextResponse.json(updated)     
+        }
+
+
+        if(st === 'DeleteDepartment'){
+            const updated = await db.project.update({
+                where:{
+                    id
+                },
+                data:{
+                    departments: {
+                        disconnect: departmentId
+                    }
+                }
+            })
+    
+            if(!updated){
+                return new NextResponse('INTERNAL ERROR', { status: 500 })
+            }
+    
+            return NextResponse.json(updated) 
+        }
+
+        
+
+
+
+
+
 
 
         const updated = await db.project.update({
@@ -37,6 +123,11 @@ export async function PUT(req: Request, context: any) {
         }
 
         return NextResponse.json(updated)
+
+
+
+
+
 
 
 

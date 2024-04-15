@@ -8,8 +8,7 @@ export default async function getTotalSalaryOfEmployeesThisMonth() {
       }
     });
   
-    console.log(salaries)
-    
+  
     return salaries;
   }
   

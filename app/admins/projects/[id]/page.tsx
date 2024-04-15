@@ -1,6 +1,7 @@
 
 import getProjectById from "@/app/actions/projects/getProjectById"
 import MainContent from "./components/MainContent"
+import getDepartmentList from "@/app/actions/departments/getDepartmentsList"
 
 
 
@@ -17,6 +18,8 @@ const ProjectIdPage = async ({
 }) => {
 
   const project = await getProjectById(params.id)
+  const departments = await getDepartmentList();
+  
 
   if(!project){
     return null;
@@ -24,7 +27,7 @@ const ProjectIdPage = async ({
   
   return (
     <div>
-      <MainContent employees={project?.employees} project={project}/>
+      <MainContent departments={departments} project={project}/>
     </div>
   )
 }
