@@ -2,7 +2,7 @@ import getEmployeeList from "@/app/actions/employees/getEmployeeList"
 
 import MainContent from "./components/MainContent";
 import getDisciplineList from "@/app/actions/disciplines/getDisciplineList";
-import Statusbar from "./components/Statusbar";
+
 
 import getDepartmentList from "@/app/actions/departments/getDepartmentsList";
 

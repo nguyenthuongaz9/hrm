@@ -41,7 +41,7 @@ const AdminPage = async () => {
         <StatusBar/>
         <ProjectSection newProject={newProject} finishedProject={finishedProject} unfinishedProject={unfinishedProject} data={projectData} projects={projects} />
         <ChartSection columnData={ChartSectionData} cicleData={chartType}/>
-        <Logout/>
+       
     </div>
   )
 }

@@ -13,12 +13,12 @@ const RecruitmentPage = () => {
         hobby: ''
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
        
     };

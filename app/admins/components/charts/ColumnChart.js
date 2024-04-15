@@ -1,16 +1,12 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 
-interface ColumnChartProps{
-  height: any;
-  data: any;
 
-}
 
 const ColumnChart = ({
   height,
   data
-}: ColumnChartProps) => {
+}) => {
   const options = {
     annotations: {
       // points: [{

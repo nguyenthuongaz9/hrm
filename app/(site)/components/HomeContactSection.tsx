@@ -26,7 +26,7 @@ const HomeContactSection = () => {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="message" className="block text-lg font-semibold text-gray-800 mb-1">Nội dung</label>
-                                <textarea id="message" name="message" rows="5" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-purple-600"></textarea>
+                                <textarea id="message" name="message" rows={5} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-purple-600"></textarea>
                             </div>
                             <button type="submit" className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition-colors duration-300">Gửi</button>
                         </form>

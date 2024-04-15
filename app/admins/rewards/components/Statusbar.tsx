@@ -4,7 +4,7 @@
 import { useState } from "react"
 import { FaUser } from "react-icons/fa6"
 import { IoMdAddCircleOutline } from "react-icons/io"
-import AddKindOfRewardDialog from "../kindOfReward/components/AddKindOfRewardDialog"
+
 import { useRouter } from "next/navigation"
 
 

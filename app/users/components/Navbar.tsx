@@ -71,7 +71,7 @@ const Navbar = ({
                     {showDropdown && (
                         <div className="absolute flex flex-col gap-3 mt-2 w-full rounded-lg shadow-md bg-white animate-dropdown cursor-pointer z-50">
                             <Button variant='ghost'
-                                onClick={()=> router.push(`/admins/employees/${user.employee.id}`)}
+                                onClick={()=> router.push(`/users`)}
                             >
                                 Xem thông tin
                             </Button>

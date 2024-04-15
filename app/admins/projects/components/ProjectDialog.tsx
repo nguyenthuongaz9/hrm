@@ -266,7 +266,11 @@ export default function ProjectDialog({
                                                 <FormControl>
                                                     <Input
                                                         type='date'
-                                                        value={field.value instanceof Date && !isNaN(field.value.getTime()) ? field.value.toISOString().split('T')[0] : field.value}
+                                                        value={
+                                                            field.value instanceof Date && !isNaN(field.value.getTime())
+                                                                ? field.value.toISOString().split('T')[0]
+                                                                : '' // Set to empty string if value is not a Date
+                                                        }
                                                         onChange={(event) => {
                                                             const selectedDate = event.target.value;
                                                             if (selectedDate) {
@@ -281,6 +285,7 @@ export default function ProjectDialog({
                                             </FormItem>
                                         )}
                                     />
+
                                     <FormField
                                         control={form.control}
                                         name="endDate"
@@ -293,7 +298,11 @@ export default function ProjectDialog({
                                                 <FormControl>
                                                     <Input
                                                         type='date'
-                                                        value={field.value instanceof Date && !isNaN(field.value.getTime()) ? field.value.toISOString().split('T')[0] : field.value}
+                                                        value={
+                                                            field.value instanceof Date && !isNaN(field.value.getTime())
+                                                                ? field.value.toISOString().split('T')[0]
+                                                                : '' // Set to empty string if value is not a Date
+                                                        }
                                                         onChange={(event) => {
                                                             const selectedDate = event.target.value;
                                                             if (selectedDate) {
@@ -373,9 +382,9 @@ export default function ProjectDialog({
                                             <select
                                                 onChange={(event) => {
                                                     const selectedDepartmentId = event.target.value;
-                                                    
+
                                                     field.onChange(selectedDepartmentId)
-                                                    
+
                                                 }}
                                                 className="border w-full rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-300">
                                                 <option value=""></option>

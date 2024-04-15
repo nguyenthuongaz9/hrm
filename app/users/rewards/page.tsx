@@ -2,10 +2,7 @@
 
 import MainContent from "./components/MainContent";
 
-import Statusbar from "./components/Statusbar";
-import getBonusList from "@/app/actions/rewards/getBonusList";
-import getDepartmentList from "@/app/actions/departments/getDepartmentsList";
-import getKindOfRewardList from "@/app/actions/rewards/getKindOfRewardList";
+
 import getCurrentUser from "@/app/actions/users/getCurrentUser";
 import { redirect } from "next/navigation";
 import getEmployeeById from "@/app/actions/employees/getEmployeeById";
