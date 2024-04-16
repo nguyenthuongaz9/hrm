@@ -28,7 +28,6 @@ const AdminPage = async () => {
   const employee = await getEmployeeById(user?.employee?.id)
   
 
-  console.log(employee?.slaries)
 
   return (
     <div className="w-full h-full p-5 overflow-auto">

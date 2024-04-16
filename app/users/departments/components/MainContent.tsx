@@ -89,8 +89,6 @@ const MainContent = ({
     }
 
 
-    console.log(department.departmentManager)
-
 
 
 
