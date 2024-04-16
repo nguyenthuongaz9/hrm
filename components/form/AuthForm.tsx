@@ -1,9 +1,9 @@
 "use client"
 
 import { User } from "@prisma/client"
-import { signIn, useSession } from "next-auth/react"
-import { redirect, useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
+
 
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -32,7 +32,7 @@ const AuthForm = ({
     currentUser
 }: AuthFormProps) => {
 
-    const session = useSession()
+   
     const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
