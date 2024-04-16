@@ -46,27 +46,32 @@ const AuthForm = ({
     function onSubmit(values: z.infer<typeof formSchema>) {
         signIn('credentials',{
             ...values,
-            redirect: false
         })
         .then((callback)=>{
             if(callback?.ok){
                 toast.success('Đăng nhập thành công')
+                if(currentUser){
+                    if (currentUser.role === 'ADMIN') {
+                        router.push('/admins')
+                    } else {
+                        router.push('/users')
+                    }
+                }
             }
             if(callback?.error){
                 toast.error('Đăng nhập thất bại')
                 
             }
-        }).finally(()=>{
-
-            if(currentUser){
-                if (currentUser.role === 'ADMIN') {
-                    router.push('/admins')
-                } else {
-                    router.push('/users')
-                }
-            }
         })
         
+    }
+
+    if(currentUser){
+        if (currentUser.role === 'ADMIN') {
+            router.push('/admins')
+        } else {
+            router.push('/users')
+        }
     }
 
 
