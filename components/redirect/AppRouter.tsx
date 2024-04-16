@@ -14,20 +14,20 @@ interface AppRouterProps {
 const AppRouter = ({
     currentUser
 }: AppRouterProps) => {
-    const [redirecting, setRedirecting] = useState(false); // State để kiểm soát việc chuyển hướng
+    const [redirecting, setRedirecting] = useState(false); 
     const session = useSession();
     const router = useRouter();
 
-    // Kiểm tra session và currentUser
+    
     useEffect(() => {
         if (!session) {
             router.push('/authentication');
-            setRedirecting(true); // Đang chuyển hướng
+            setRedirecting(true); 
             return;
         }
 
         if (!currentUser) {
-            setRedirecting(true); // Đang chuyển hướng
+            setRedirecting(true); 
             return;
         }
 
@@ -37,16 +37,15 @@ const AppRouter = ({
             } else if (currentUser.role === 'GUEST') {
                 router.push('/users');
             }
-            setRedirecting(true); // Đang chuyển hướng
+            setRedirecting(true); 
         }
     }, [currentUser, session, router]);
 
     // Nếu đang chuyển hướng, hiển thị trang chờ loading
     if (redirecting) {
         return (
-            <div className='w-full h-full flex items-center justify-center'>
-
-                <PacmanLoader color="#2c76f9" />
+            <div className="w-full h-full">
+                <HomePage />
             </div>
         );
     }
