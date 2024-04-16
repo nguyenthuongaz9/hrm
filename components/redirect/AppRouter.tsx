@@ -2,57 +2,61 @@
 
 import { User } from "@prisma/client"
 import { useSession } from "next-auth/react"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import HomePage from "../../app/(site)/components/Home";
 import { useEffect, useState } from "react";
+import { PacmanLoader } from "react-spinners";
 
-
-
-interface AppRouterProps{
-    currentUser : User | undefined | null;
+interface AppRouterProps {
+    currentUser: User | undefined | null;
 }
 
 const AppRouter = ({
     currentUser
 }: AppRouterProps) => {
+    const [redirecting, setRedirecting] = useState(false); // State để kiểm soát việc chuyển hướng
+    const session = useSession();
+    const router = useRouter();
 
-    
-    const session = useSession()
-    const router = useRouter()
-
-   
-   
-
-    if(!session){
-        router.push('/authentication')
-    }
-
-    
-
-    if(!currentUser){
-        return (
-            <div className="w-full h-full">
-                <HomePage />
-            </div>
-        )
-    }
-
-    useEffect(()=>{
-        if (session.status === 'authenticated') {
-            if(currentUser?.role === 'ADMIN'){
-                return redirect('/admins')
-            }
-            if(currentUser?.role === 'GUEST'){
-                return redirect('/users')
-            }
+    // Kiểm tra session và currentUser
+    useEffect(() => {
+        if (!session) {
+            router.push('/authentication');
+            setRedirecting(true); // Đang chuyển hướng
+            return;
         }
-    },[currentUser, session])
 
+        if (!currentUser) {
+            setRedirecting(true); // Đang chuyển hướng
+            return;
+        }
 
+        if (session.status === 'authenticated') {
+            if (currentUser.role === 'ADMIN') {
+                router.push('/admins');
+            } else if (currentUser.role === 'GUEST') {
+                router.push('/users');
+            }
+            setRedirecting(true); // Đang chuyển hướng
+        }
+    }, [currentUser, session, router]);
 
+    // Nếu đang chuyển hướng, hiển thị trang chờ loading
+    if (redirecting) {
+        return (
+            <div className='w-full h-full flex items-center justify-center'>
 
+                <PacmanLoader color="#2c76f9" />
+            </div>
+        );
+    }
 
-
+    // Nếu không có chuyển hướng, hiển thị trang chính
+    return (
+        <div className="w-full h-full">
+            <HomePage />
+        </div>
+    );
 }
 
-export default AppRouter
+export default AppRouter;
