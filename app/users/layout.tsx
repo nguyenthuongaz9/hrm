@@ -6,14 +6,14 @@ import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 
 
-interface AdminLayoutProps {
+interface UserLayoutProps {
     children: React.ReactNode
 }
 
 
-const AdminLayout = ({
+const UserLayout = ({
     children
-}: AdminLayoutProps) => {
+}: UserLayoutProps) => {
     return (
         <div className="w-full h-full flex">
             <main className="w-full h-full overflow-hidden flex ">   
@@ -27,4 +27,4 @@ const AdminLayout = ({
     )
 }
 
-export default AdminLayout
+export default UserLayout

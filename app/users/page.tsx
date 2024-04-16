@@ -11,7 +11,7 @@ import { redirect } from 'next/navigation'
 
 
 
-const AdminPage = async () => {
+const UserPage = async () => {
 
   
 
@@ -36,4 +36,4 @@ const AdminPage = async () => {
   )
 }
 
-export default AdminPage
+export default UserPage
