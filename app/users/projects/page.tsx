@@ -12,14 +12,14 @@ const page = async () => {
 
 
   const user = await getCurrentUser()
+  if(!user || !user.employee){
+    return redirect('/authentication')
+  }
 
   if(user?.role === 'ADMIN'){
     return redirect('/admins')
   }
 
-  if(!user || !user.employee){
-    return redirect('/authentication')
-  }
 
 
   const employee = await getEmployeeById(user?.employee?.id)

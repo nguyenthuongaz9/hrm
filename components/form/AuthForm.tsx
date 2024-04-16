@@ -2,7 +2,7 @@
 
 import { User } from "@prisma/client"
 import { signIn, useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 
@@ -57,19 +57,20 @@ const AuthForm = ({
                 toast.error('Đăng nhập thất bại')
                 
             }
+        }).finally(()=>{
+
+            if(currentUser){
+                if (currentUser.role === 'ADMIN') {
+                    router.push('/admins')
+                } else {
+                    router.push('/users')
+                }
+            }
         })
         
     }
 
-    useEffect(() => {
-        if (currentUser && session?.status === "authenticated") {
-            if (currentUser.role === 'ADMIN') {
-                router.push('/admins')
-            } else {
-                router.push('/users')
-            }
-        }
-    }, [currentUser, session?.status, router])
+
 
     if (!currentUser) {
         return (

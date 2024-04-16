@@ -16,36 +16,18 @@ const AppRouter = ({
     currentUser
 }: AppRouterProps) => {
 
-    const [isMounted, setIsMounted] = useState(false)
+    
     const session = useSession()
     const router = useRouter()
 
    
-    useEffect(()=>{
-        setIsMounted(true);
-    },[])
-
-    if(!isMounted){
-        return null;
-    }
+   
 
     if(!session){
         router.push('/authentication')
     }
 
     
-
-
-
-    if (session.status === 'authenticated') {
-        if(currentUser?.role === 'ADMIN'){
-            return redirect('/admins')
-        }
-        if(currentUser?.role === 'GUEST'){
-            return redirect('/users')
-        }
-    }
-
 
     if(!currentUser){
         return (
@@ -54,6 +36,20 @@ const AppRouter = ({
             </div>
         )
     }
+
+    useEffect(()=>{
+        if (session.status === 'authenticated') {
+            if(currentUser?.role === 'ADMIN'){
+                return redirect('/admins')
+            }
+            if(currentUser?.role === 'GUEST'){
+                return redirect('/users')
+            }
+        }
+    },[currentUser, session])
+
+
+
 
 
 

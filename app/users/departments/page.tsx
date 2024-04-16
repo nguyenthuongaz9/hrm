@@ -7,14 +7,14 @@ import getDepartmentById from "@/app/actions/departments/getDepartmentById"
 const page = async () => {
   const user = await getCurrentUser()
   
+  if(!user || !user.employee){
+    return redirect('/authentication')
+  }
   if(user?.role === 'ADMIN'){
     return redirect('/admins')
   }
 
 
-  if(!user || !user.employee){
-    return redirect('/authentication')
-  }
 
 
   if(!user.employee.DepartmentId){
