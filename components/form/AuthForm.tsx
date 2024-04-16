@@ -51,7 +51,6 @@ const AuthForm = ({
         .then((callback)=>{
             if(callback?.ok){
                 toast.success('Đăng nhập thành công')
-                router.push('/')
             }
             if(callback?.error){
                 toast.error('Đăng nhập thất bại')
