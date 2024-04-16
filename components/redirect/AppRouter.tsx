@@ -2,7 +2,7 @@
 
 import { User } from "@prisma/client"
 import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import HomePage from "../../app/(site)/components/Home";
 import { useEffect, useState } from "react";
 
@@ -39,18 +39,22 @@ const AppRouter = ({
 
     if (session.status === 'authenticated') {
         if(currentUser?.role === 'ADMIN'){
-            router.push('/admins')
+            return redirect('/admins')
         }
         if(currentUser?.role === 'GUEST'){
-            router.push('/users')
+            return redirect('/users')
         }
     }
 
-    return (
-        <div className="w-full h-full">
-            <HomePage />
-        </div>
-    )
+
+    if(!currentUser){
+        return (
+            <div className="w-full h-full">
+                <HomePage />
+            </div>
+        )
+    }
+
 
 
 }
