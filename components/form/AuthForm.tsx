@@ -23,14 +23,10 @@ const formSchema = z.object({
 })
 
 
-interface AuthFormProps {
-    currentUser?: User | undefined | null
-}
 
 
-const AuthForm = ({
-    currentUser
-}: AuthFormProps) => {
+const AuthForm = () => {
+
 
 
     const router = useRouter()
@@ -46,19 +42,27 @@ const AuthForm = ({
     function onSubmit(values: z.infer<typeof formSchema>) {
         signIn('credentials', {
             ...values,
+            redirect: false,
+
         })
             .then((callback) => {
                 if (callback?.ok) {
                     toast.success('Đăng nhập thành công')
                     router.push('/')
+
+
                 }
                 if (callback?.error) {
                     toast.error('Đăng nhập thất bại')
-                    location.reload();
+
                 }
             })
 
     }
+
+
+
+
 
 
     return (

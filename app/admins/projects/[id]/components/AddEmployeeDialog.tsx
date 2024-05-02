@@ -72,6 +72,7 @@ const AddEmployeeDialog = ({
         }).then((callback)=>{
             if(callback.status === 200){
                 toast.success('Thêm nhân viên thành công')
+                location.reload()
             }else{
                 toast.error('Thêm nhân viên thất bại')
             }

@@ -194,7 +194,7 @@ export default function NationDialog({
                     </button>
                 </div>
                 <div className='w-full flex justify-center items-center'>
-                    <h3 className='text-md font-bold'>{variant === 'edit' ? 'Chỉnh sửa chức vụ' : 'Thêm chức vụ mới'}</h3>
+                    <h3 className='text-md font-bold'>{variant === 'edit' ? 'Chỉnh sửa chức vụ' : 'Thêm dân tộc mới'}</h3>
                 </div>
                 <div>
                     <Form {...form}>

@@ -74,6 +74,7 @@ export default function DepartmentDialog({
                 if (callback.status === 200) {
                     toast.success('Tạo phòng ban thành công')
                     form.reset()
+                    location.reload()
                 } else {
                     toast.error('Tạo phòng ban thất bại')
                 }

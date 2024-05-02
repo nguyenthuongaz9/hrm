@@ -68,6 +68,7 @@ export default function PositionDialog({
                 if (callback.status === 200) {
                     toast.success('Tạo chức vụ thành công')
                     form.reset()
+                    location.reload()
                 } else {
                     toast.error('Tạo chức vụ thất bại')
                 }
