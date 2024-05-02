@@ -50,17 +50,11 @@ const AuthForm = ({
             .then((callback) => {
                 if (callback?.ok) {
                     toast.success('Đăng nhập thành công')
-                    if (currentUser) {
-                        if (currentUser.role === 'ADMIN') {
-                            router.push('/admins')
-                        } else {
-                            router.push('/users')
-                        }
-                    }
+                    router.push('/')
                 }
                 if (callback?.error) {
                     toast.error('Đăng nhập thất bại')
-
+                    location.reload();
                 }
             })
 
