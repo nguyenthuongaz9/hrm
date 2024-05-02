@@ -32,7 +32,7 @@ const AuthForm = ({
     currentUser
 }: AuthFormProps) => {
 
-   
+
     const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -44,88 +44,78 @@ const AuthForm = ({
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        signIn('credentials',{
+        signIn('credentials', {
             ...values,
         })
-        .then((callback)=>{
-            if(callback?.ok){
-                toast.success('Đăng nhập thành công')
-                if(currentUser){
-                    if (currentUser.role === 'ADMIN') {
-                        router.push('/admins')
-                    } else {
-                        router.push('/users')
+            .then((callback) => {
+                if (callback?.ok) {
+                    toast.success('Đăng nhập thành công')
+                    if (currentUser) {
+                        if (currentUser.role === 'ADMIN') {
+                            router.push('/admins')
+                        } else {
+                            router.push('/users')
+                        }
                     }
                 }
-            }
-            if(callback?.error){
-                toast.error('Đăng nhập thất bại')
-                
-            }
-        })
-        
-    }
+                if (callback?.error) {
+                    toast.error('Đăng nhập thất bại')
 
-    if(currentUser){
-        if (currentUser.role === 'ADMIN') {
-            router.push('/admins')
-        } else {
-            router.push('/users')
-        }
+                }
+            })
+
     }
 
 
-
-    if (!currentUser) {
-        return (
-            <div className="w-full md:w-[35rem] border p-10 rounded-md shadow-md">
-                <h2 className="text-center font-bold text-3xl ">
-                    Đăng nhập
-                </h2>
-                <div>
-                    <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                            <FormField
-                                control={form.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="shadcn" {...field} />
-                                        </FormControl>
-                                        <FormDescription>
-                                            Enter your email
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <Input type="password" placeholder="shadcn" {...field} />
-                                        </FormControl>
-                                        <FormDescription>
-                                            Enter your password
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <Button variant="primary" type="submit">Submit</Button>
-                        </form>
-                    </Form>
+    return (
+        <div className="w-full md:w-[35rem] border p-10 rounded-md shadow-md">
+            <h2 className="text-center font-bold text-3xl ">
+                Đăng nhập
+            </h2>
+            <div>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="shadcn" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Enter your email
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input type="password" placeholder="shadcn" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        Enter your password
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button variant="primary" type="submit">Submit</Button>
+                    </form>
+                </Form>
 
 
-                </div>
             </div>
-        )
-    }
+        </div>
+    )
+
 }
 
 export default AuthForm
