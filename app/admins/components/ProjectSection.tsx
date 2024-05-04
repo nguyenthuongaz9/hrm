@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import ColumnChart from "./charts/ColumnChart";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 
 
@@ -24,6 +25,7 @@ const ProjectSection = ({
     projects
 }: ProjectSectionProps) => {
     const [showfilter, setShowFilter] = useState(false)
+    const router = useRouter()
     const toggleFilter = () => {
         setShowFilter(!showfilter);
     }
@@ -124,7 +126,7 @@ const ProjectSection = ({
                 </div>
 
 
-                <Button className="transition-all w-full bg-[#2c76f9] hover:bg-[#5c8cdd] hover:ring-2">
+                <Button className="transition-all w-full bg-[#2c76f9] hover:bg-[#5c8cdd] hover:ring-2" onClick={()=> router.push('/admins/projects')}>
                     Xem tất cả
                 </Button>
 
